@@ -1,41 +1,45 @@
-import { useThree, useFrame } from '@react-three/fiber'
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import * as THREE from 'three'
-import { useCameraStore } from '@/hooks/useCameraStore'
+import { useThree } from '@react-three/fiber'
+import { useLayoutEffect, type ReactNode, type RefObject } from 'react'
+import type { Group, PerspectiveCamera } from 'three'
+import { motionConfig } from '@/lib/experience/motionConfig'
 
-export default function Camera() {
-  const { camera } = useThree()
-  const lookAtTarget = useRef(new THREE.Vector3(0, 0, 0))
-  const targetPosition = useCameraStore((s) => s.targetPosition)
-  const targetLookAt = useCameraStore((s) => s.lookAt)
-  const initialized = useRef(false)
+interface CameraRigProps {
+  focusRef: RefObject<Group | null>
+  yawRef: RefObject<Group | null>
+  pitchRef: RefObject<Group | null>
+  cameraRef: RefObject<PerspectiveCamera | null>
+  /** Rendered at the focus point, e.g. debug helpers. */
+  children?: ReactNode
+}
 
-  useEffect(() => {
-    if (!initialized.current) {
-      camera.position.set(targetPosition.x, targetPosition.y, targetPosition.z)
-      initialized.current = true
-      return
-    }
-    
-    gsap.to(camera.position, {
-      ...targetPosition,
-      duration: 1.5,
-      ease: 'power3.out',
-    })
-  }, [targetPosition, camera])
+/**
+ * Camera rig: focus → yaw → pitch → dolly (camera.position.z).
+ *
+ * The camera sits on the pitch pivot's +Z axis and looks down −Z, so it always faces the focus by
+ * construction: no lookAt(), no roll, and with pitch clamped it can never flip. All values are
+ * written by the Experience render loop; this component only builds the hierarchy.
+ */
+export default function CameraRig({ focusRef, yawRef, pitchRef, cameraRef, children }: CameraRigProps) {
+  const set = useThree((s) => s.set)
+  const get = useThree((s) => s.get)
 
-  useEffect(() => {
-    gsap.to(lookAtTarget.current, {
-      ...targetLookAt,
-      duration: 1.5,
-      ease: 'power3.out',
-    })
-  }, [targetLookAt])
+  // Make this the default camera (without drei's PerspectiveCamera, which always allocates an FBO).
+  useLayoutEffect(() => {
+    const camera = cameraRef.current
+    if (!camera) return
+    const previous = get().camera
+    set({ camera })
+    return () => set({ camera: previous })
+  }, [cameraRef, get, set])
 
-  useFrame(() => {
-    camera.lookAt(lookAtTarget.current)
-  })
-
-  return null
+  return (
+    <group ref={focusRef}>
+      {children}
+      <group ref={yawRef}>
+        <group ref={pitchRef}>
+          <perspectiveCamera ref={cameraRef} near={motionConfig.camera.near} far={motionConfig.camera.far} />
+        </group>
+      </group>
+    </group>
+  )
 }

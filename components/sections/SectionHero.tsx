@@ -19,7 +19,8 @@ export default function SectionHero() {
     <section ref={(el) => { sectionRef.current = el; containerRef.current = el; }} className="h-screen overflow-hidden relative">
       {/* Right Sidebar - Full Height Navigation */}
       <motion.div 
-        className="absolute right-0 top-0 h-full w-24 animate-slide-in-right flex flex-col"
+        data-scene-reserve
+        className="absolute right-0 top-0 h-full w-24 animate-slide-in-right hidden lg:flex flex-col"
         style={{
           x: rightX,
           background: 'linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))',
@@ -80,9 +81,13 @@ export default function SectionHero() {
       </motion.div>
 
       {/* Left Content Area */}
-      <motion.div style={{ x: leftX }} className="absolute left-8 top-1/2 -translate-y-1/2 w-[600px] space-y-6 animate-slide-in-left">
+      <motion.div
+        data-scene-reserve
+        style={{ x: leftX }}
+        className="absolute left-4 right-4 bottom-6 space-y-3 lg:left-8 lg:right-auto lg:top-0 lg:bottom-0 lg:my-auto lg:h-fit lg:w-[600px] lg:space-y-6 animate-slide-in-left"
+      >
         {/* Title Section */}
-        <div className="space-y-5">
+        <div className="space-y-3 lg:space-y-5">
           <div 
             className="inline-block px-4 py-2 rounded-full animate-fade-in"
             style={{
@@ -97,7 +102,7 @@ export default function SectionHero() {
           </div>
           
           <h1 
-            className="text-7xl font-bold animate-fade-in whitespace-nowrap mt-4" 
+            className="text-3xl min-[380px]:text-4xl sm:text-5xl lg:text-7xl font-bold animate-fade-in whitespace-nowrap mt-2 lg:mt-4" 
             style={{ 
               fontFamily: 'Uncial Antiqua, serif',
               color: '#5c4a3a',
@@ -108,13 +113,13 @@ export default function SectionHero() {
             FLYING ATLAS
           </h1>
           
-          <p className="text-lg leading-relaxed text-[#3a2a1a] max-w-md animate-fade-in" style={{ fontFamily: 'Caveat Brush, cursive', animationDelay: '0.2s' }}>
+          <p className="text-sm lg:text-lg leading-snug lg:leading-relaxed text-[#3a2a1a] max-w-md animate-fade-in" style={{ fontFamily: 'Caveat Brush, cursive', animationDelay: '0.2s' }}>
             A magnificent vessel of brass and steam, its burnished hull gleaming like molten gold beneath the sun. Born from the forge of master craftsmen, this mechanical marvel drifts through cerulean skies and amber-lit clouds, carried by warm currents that whisper of distant lands. Each rivet and gear tells a story of adventure, while endless horizons beckon with promises of wonder yet unseen.
           </p>
         </div>
 
         {/* Feature Highlights */}
-        <div className="space-y-3 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+        <div className="hidden lg:block space-y-3 animate-fade-in" style={{ animationDelay: '0.3s' }}>
           <div className="flex items-center space-x-3">
             <svg className="w-6 h-6 text-[#5c4a3a]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M5 13l4 4L19 7" />
@@ -136,53 +141,53 @@ export default function SectionHero() {
         </div>
 
         {/* Stats Cards Grid */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-4 lg:grid-cols-2 gap-2 lg:gap-4">
           <div 
-            className="relative overflow-hidden rounded-3xl p-6 text-center transition-all duration-500 hover:scale-105"
+            className="relative overflow-hidden rounded-2xl lg:rounded-3xl p-2 lg:p-6 text-center transition-all duration-500 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))',
               backdropFilter: 'blur(20px)',
               border: '1px solid rgba(255,255,255,0.3)'
             }}
           >
-            <p className="text-4xl font-bold text-[#5c4a3a] mb-2" style={{ fontFamily: 'Caveat Brush, cursive' }}>750m</p>
-            <p className="text-sm text-[#3a2a1a]" style={{ fontFamily: 'Caveat Brush, cursive' }}>Altitude</p>
+            <p className="text-xl lg:text-4xl font-bold text-[#5c4a3a] lg:mb-2" style={{ fontFamily: 'Caveat Brush, cursive' }}>750m</p>
+            <p className="text-xs lg:text-sm text-[#3a2a1a]" style={{ fontFamily: 'Caveat Brush, cursive' }}>Altitude</p>
           </div>
 
           <div 
-            className="relative overflow-hidden rounded-3xl p-6 text-center transition-all duration-500 hover:scale-105"
+            className="relative overflow-hidden rounded-2xl lg:rounded-3xl p-2 lg:p-6 text-center transition-all duration-500 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))',
               backdropFilter: 'blur(20px)',
               border: '1px solid rgba(255,255,255,0.3)'
             }}
           >
-            <p className="text-4xl font-bold text-[#5c4a3a] mb-2" style={{ fontFamily: 'Caveat Brush, cursive' }}>18km/h</p>
-            <p className="text-sm text-[#3a2a1a]" style={{ fontFamily: 'Caveat Brush, cursive' }}>Speed</p>
+            <p className="text-xl lg:text-4xl font-bold text-[#5c4a3a] lg:mb-2" style={{ fontFamily: 'Caveat Brush, cursive' }}>18km/h</p>
+            <p className="text-xs lg:text-sm text-[#3a2a1a]" style={{ fontFamily: 'Caveat Brush, cursive' }}>Speed</p>
           </div>
 
           <div 
-            className="relative overflow-hidden rounded-3xl p-6 text-center transition-all duration-500 hover:scale-105"
+            className="relative overflow-hidden rounded-2xl lg:rounded-3xl p-2 lg:p-6 text-center transition-all duration-500 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))',
               backdropFilter: 'blur(20px)',
               border: '1px solid rgba(255,255,255,0.3)'
             }}
           >
-            <p className="text-4xl font-bold text-[#5c4a3a] mb-2" style={{ fontFamily: 'Caveat Brush, cursive' }}>6hrs</p>
-            <p className="text-sm text-[#3a2a1a]" style={{ fontFamily: 'Caveat Brush, cursive' }}>Duration</p>
+            <p className="text-xl lg:text-4xl font-bold text-[#5c4a3a] lg:mb-2" style={{ fontFamily: 'Caveat Brush, cursive' }}>6hrs</p>
+            <p className="text-xs lg:text-sm text-[#3a2a1a]" style={{ fontFamily: 'Caveat Brush, cursive' }}>Duration</p>
           </div>
 
           <div 
-            className="relative overflow-hidden rounded-3xl p-6 text-center transition-all duration-500 hover:scale-105"
+            className="relative overflow-hidden rounded-2xl lg:rounded-3xl p-2 lg:p-6 text-center transition-all duration-500 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))',
               backdropFilter: 'blur(20px)',
               border: '1px solid rgba(255,255,255,0.3)'
             }}
           >
-            <p className="text-4xl font-bold text-[#5c4a3a] mb-2" style={{ fontFamily: 'Caveat Brush, cursive' }}>2</p>
-            <p className="text-sm text-[#3a2a1a]" style={{ fontFamily: 'Caveat Brush, cursive' }}>Voyagers</p>
+            <p className="text-xl lg:text-4xl font-bold text-[#5c4a3a] lg:mb-2" style={{ fontFamily: 'Caveat Brush, cursive' }}>2</p>
+            <p className="text-xs lg:text-sm text-[#3a2a1a]" style={{ fontFamily: 'Caveat Brush, cursive' }}>Voyagers</p>
           </div>
         </div>
       </motion.div>
