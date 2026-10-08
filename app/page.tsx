@@ -15,8 +15,9 @@ export default function Home() {
       {/* Layer 1: Background - z-0 */}
       <div className="fixed inset-0 z-0 bg-[url('/background.jpg')] bg-cover bg-center" />
       
-      {/* Layer 2: Model - z-10 */}
-      <div className="fixed inset-0 z-10 pointer-events-none">
+      {/* Layer 2: Model - z-10. Large-viewport height so the canvas doesn't resize (and re-frame)
+          when the mobile browser toolbar shows or hides. */}
+      <div className="fixed inset-x-0 top-0 h-lvh z-10 pointer-events-none">
         <Scene />
       </div>
 

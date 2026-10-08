@@ -5,7 +5,8 @@ export default function FooterSection() {
 
   return (
     <section ref={sectionRef} className="h-screen overflow-hidden relative flex items-end">
-      <div 
+      <div
+        data-scene-reserve
         className="w-full py-6 px-8"
         style={{
           background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))',
